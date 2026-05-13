@@ -136,7 +136,7 @@
             <title>Last 30 Days</title>
         </components>
     </middleSection>
-    <owner>pavel.mitrohin-3967322703@industryapps.edu</owner>
+    <owner>ravikant@agiletargetorg.com</owner>
     <rightSection>
         <columnSize>Medium</columnSize>
         <components>
@@ -303,7 +303,7 @@
             <useReportChart>false</useReportChart>
         </components>
     </rightSection>
-    <runningUser>pavel.mitrohin-3967322703@industryapps.edu</runningUser>
+    <runningUser>ravikant@agiletargetorg.com</runningUser>
     <textColor>#000000</textColor>
     <title>Adoption Dashboard</title>
     <titleColor>#000099</titleColor>

@@ -20,8 +20,12 @@
                 <field>ParentId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Region__c</field>
+                <behavior>Edit</behavior>
+                <field>Field1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Field2__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -53,10 +57,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Industry</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>vlocity_cmt__DateFounded__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -176,9 +176,6 @@
             <quickActionName>NewEvent</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>FeedItem.RypplePost</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>FeedItem.LinkPost</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
@@ -194,6 +191,7 @@
     <relatedLists>
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
+        <fields>DateTime__c</fields>
         <fields>CONTACT.EMAIL</fields>
         <fields>CONTACT.PHONE1</fields>
         <relatedList>RelatedContactList</relatedList>
@@ -245,14 +243,6 @@
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>CONTRACT.CONTRACT_NUMBER</fields>
-        <fields>CONTRACT.NAME</fields>
-        <fields>CONTRACT.START_DATE</fields>
-        <fields>CONTRACT.END_DATE</fields>
-        <fields>CONTRACT.STATUS</fields>
-        <relatedList>RelatedContractList</relatedList>
-    </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -260,7 +250,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1I000001HOKm</masterLabel>
+        <masterLabel>00h5w00000Rdmb0</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

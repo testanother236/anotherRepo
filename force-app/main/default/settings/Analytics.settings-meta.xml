@@ -26,10 +26,10 @@
     <enableNullDimension>false</enableNullDimension>
     <enableOrgCanSeeLivePreviews>false</enableOrgCanSeeLivePreviews>
     <enableOrgCanViewTableau>false</enableOrgCanViewTableau>
-    <enableOrgCanViewThumbnailForOA>true</enableOrgCanViewThumbnailForOA>
+    <enableOrgCanViewThumbnailForOA>false</enableOrgCanViewThumbnailForOA>
     <enableOrgHasMobileOfflineEnabled>true</enableOrgHasMobileOfflineEnabled>
     <enableOrgHasWatchlistEnabled>true</enableOrgHasWatchlistEnabled>
-    <enableQueryLiveConnectors>true</enableQueryLiveConnectors>
+    <enableQueryLiveConnectors>false</enableQueryLiveConnectors>
     <enableRemoveFooterForRepDisplay>false</enableRemoveFooterForRepDisplay>
     <enableRemoveFooterFromRepExp>false</enableRemoveFooterFromRepExp>
     <enableReportHideXlsExportPref>false</enableReportHideXlsExportPref>
@@ -55,6 +55,7 @@
     <isDiscoveryOptimizationEnabled>false</isDiscoveryOptimizationEnabled>
     <isHighVolumePushbackEnabled>false</isHighVolumePushbackEnabled>
     <maxHoursAppInProgress>48</maxHoursAppInProgress>
+    <recipeFiscalPref>false</recipeFiscalPref>
     <replaceBlankMeasuresWithNulls>false</replaceBlankMeasuresWithNulls>
     <turnOnTimeZones>false</turnOnTimeZones>
 </AnalyticsSettings>

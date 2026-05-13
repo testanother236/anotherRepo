@@ -143,14 +143,10 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>ReadWrite</externalSharingModel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>PRODUCT2.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>PRODUCT2.CUSTOMER_PRODUCT_ID</customTabListAdditionalFields>
         <customTabListAdditionalFields>PRODUCT2.DESCRIPTION</customTabListAdditionalFields>
-        <excludedStandardButtons>CreateNewProduct</excludedStandardButtons>
-        <listViewButtons>vlocity_cmt__ProductConsoleNewProductButton</listViewButtons>
-        <listViewButtons>vlocity_cmt__ProductConsoleGenerateReportButton</listViewButtons>
         <lookupDialogsAdditionalFields>PRODUCT2.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>PRODUCT2.CUSTOMER_PRODUCT_ID</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>PRODUCT2.DESCRIPTION</lookupDialogsAdditionalFields>

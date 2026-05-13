@@ -12,6 +12,13 @@
             <desktopEnabled>true</desktopEnabled>
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
+        <notificationType>admin_graph_api_migration</notificationType>
+    </notificationTypeSettings>
+    <notificationTypeSettings>
+        <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>false</mobileEnabled>
+        </notificationChannels>
         <notificationType>ads_notification</notificationType>
     </notificationTypeSettings>
     <notificationTypeSettings>
@@ -150,20 +157,6 @@
     <notificationTypeSettings>
         <notificationChannels>
             <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>false</mobileEnabled>
-        </notificationChannels>
-        <notificationType>fonts_sync_notification</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>false</mobileEnabled>
-        </notificationChannels>
-        <notificationType>forecasting_jump_to</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
             <mobileEnabled>true</mobileEnabled>
         </notificationChannels>
         <notificationType>group_announce</notificationType>
@@ -229,13 +222,6 @@
             <desktopEnabled>true</desktopEnabled>
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
-        <notificationType>obligation_alerts</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>false</mobileEnabled>
-        </notificationChannels>
         <notificationType>optimizer_scan_results</notificationType>
     </notificationTypeSettings>
     <notificationTypeSettings>
@@ -289,6 +275,13 @@
     </notificationTypeSettings>
     <notificationTypeSettings>
         <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>false</mobileEnabled>
+        </notificationChannels>
+        <notificationType>rtf_payment_status</notificationType>
+    </notificationTypeSettings>
+    <notificationTypeSettings>
+        <notificationChannels>
             <desktopEnabled>false</desktopEnabled>
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
@@ -307,6 +300,13 @@
             <mobileEnabled>true</mobileEnabled>
         </notificationChannels>
         <notificationType>stream_post</notificationType>
+    </notificationTypeSettings>
+    <notificationTypeSettings>
+        <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>false</mobileEnabled>
+        </notificationChannels>
+        <notificationType>suites_agent_enablement</notificationType>
     </notificationTypeSettings>
     <notificationTypeSettings>
         <notificationChannels>
@@ -334,6 +334,13 @@
             <desktopEnabled>true</desktopEnabled>
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
+        <notificationType>user_graph_api_migration</notificationType>
+    </notificationTypeSettings>
+    <notificationTypeSettings>
+        <notificationChannels>
+            <desktopEnabled>true</desktopEnabled>
+            <mobileEnabled>false</mobileEnabled>
+        </notificationChannels>
         <notificationType>voice_call_share</notificationType>
     </notificationTypeSettings>
     <notificationTypeSettings>
@@ -342,26 +349,5 @@
             <mobileEnabled>false</mobileEnabled>
         </notificationChannels>
         <notificationType>ya_contract_renewal_notify</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>true</mobileEnabled>
-        </notificationChannels>
-        <notificationType>BulkNotifications</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>true</mobileEnabled>
-        </notificationChannels>
-        <notificationType>CMEbatchJob</notificationType>
-    </notificationTypeSettings>
-    <notificationTypeSettings>
-        <notificationChannels>
-            <desktopEnabled>true</desktopEnabled>
-            <mobileEnabled>true</mobileEnabled>
-        </notificationChannels>
-        <notificationType>vlocity_cmt__ESMNotifications</notificationType>
     </notificationTypeSettings>
 </NotificationTypeConfig>

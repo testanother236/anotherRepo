@@ -188,35 +188,27 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <formFactor>Small</formFactor>
+        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Order_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>ORDERS.ORDER_NUMBER</customTabListAdditionalFields>
         <customTabListAdditionalFields>SALES.ACCOUNT.NAME</customTabListAdditionalFields>
-        <customTabListAdditionalFields>ORDER.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>ORDERS.STATUS</customTabListAdditionalFields>
         <customTabListAdditionalFields>ORDERS.TOTAL_AMOUNT</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>ORDERS.ORDER_NUMBER</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CONTRACT.OWNERALIAS</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ORDERS.ORDER_NUMBER</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CONTRACT.OWNERALIAS</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>vlocity_cmt__Fax__c</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>vlocity_cmt__Phone__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>ORDERS.ORDER_NUMBER</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ORDER.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>SALES.ACCOUNT.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ORDERS.TOTAL_AMOUNT</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ORDERS.EFFECTIVE_DATE</searchResultsAdditionalFields>

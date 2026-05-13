@@ -25,28 +25,4 @@
         <label>New</label>
         <closed>false</closed>
     </standardValue>
-    <standardValue>
-        <fullName>Pending</fullName>
-        <default>false</default>
-        <label>Pending</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Approved</fullName>
-        <default>false</default>
-        <label>Approved</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Rejected</fullName>
-        <default>false</default>
-        <label>Rejected</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Applied</fullName>
-        <default>false</default>
-        <label>Applied</label>
-        <closed>false</closed>
-    </standardValue>
 </StandardValueSet>
