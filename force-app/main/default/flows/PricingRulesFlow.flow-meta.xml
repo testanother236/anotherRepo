@@ -6,21 +6,7 @@
             <assignToReference>onboardingTypeChoiceLabels</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>Individual Agent</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>onboardingTypeChoiceLabels</assignToReference>
-            <operator>Add</operator>
-            <value>
                 <stringValue>Business Entity</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>onboardingTypeChoiceValues</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <stringValue>Individual</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -37,22 +23,6 @@
         <locationX>732</locationX>
         <locationY>3854</locationY>
         <name>Add_Values_to_Onboarding_Choice_Variables</name>
-    </assignments>
-    <assignments>
-        <assignmentItems>
-            <assignToReference>onboardingType.selectedValue</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Business</stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Business_Entity_or_Individual_Decision</targetReference>
-        </connector>
-        <label>Set the Entity type to Business</label>
-        <locationX>732</locationX>
-        <locationY>4070</locationY>
-        <name>asc_Set_the_Entity_type_to_Business</name>
     </assignments>
     <assignments>
         <assignmentItems>
@@ -186,6 +156,22 @@
     </assignments>
     <assignments>
         <assignmentItems>
+            <assignToReference>foundNPN</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record.agentsync__NPN__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Agent_Basic_Info</targetReference>
+        </connector>
+        <label>Assign NPN Variable</label>
+        <locationX>1783</locationX>
+        <locationY>2246</locationY>
+        <name>Assign_NPN_Variable</name>
+    </assignments>
+    <assignments>
+        <assignmentItems>
             <assignToReference>NonActiveAgentIdUpline</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -218,29 +204,6 @@
     </assignments>
     <assignments>
         <assignmentItems>
-            <assignToReference>foundNPN</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Contact_Record.agentsync__NPN__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Agent_Basic_Info</targetReference>
-        </connector>
-        <label>Assign NPN Variable</label>
-        <locationX>1783</locationX>
-        <locationY>2246</locationY>
-        <name>Assign_NPN_Variable</name>
-    </assignments>
-    <assignments>
-        <assignmentItems>
-            <assignToReference>ValidateCRD</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>fxCRDValdiationAssignment</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>OutputBDOversight</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -248,10 +211,10 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>OutputPendingBusiness</assignToReference>
+            <assignToReference>OutputDistributionOwner</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>fxPendingBusinessAssignment</elementReference>
+                <elementReference>SIG_or_SIAG</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -262,10 +225,17 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>OutputDistributionOwner</assignToReference>
+            <assignToReference>OutputPendingBusiness</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>SIG_or_SIAG</elementReference>
+                <elementReference>fxPendingBusinessAssignment</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ValidateCRD</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fxCRDValdiationAssignment</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -275,6 +245,22 @@
         <locationX>2080</locationX>
         <locationY>1730</locationY>
         <name>Assign_Variables_for_Sub_Flows</name>
+    </assignments>
+    <assignments>
+        <assignmentItems>
+            <assignToReference>onboardingType.selectedValue</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Business</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Business_Entity_or_Individual_Decision</targetReference>
+        </connector>
+        <label>Set the Entity type to BusinessTEST</label>
+        <locationX>732</locationX>
+        <locationY>4070</locationY>
+        <name>asc_Set_the_Entity_type_to_Business</name>
     </assignments>
     <choices>
         <choiceText>Banking Information</choiceText>
@@ -566,10 +552,10 @@
         <rules>
             <conditionLogic>(1 OR 2) AND 3</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>NAC_100</elementReference>
+                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -577,13 +563,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>NACOL</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -637,17 +616,10 @@
         <rules>
             <conditionLogic>( 1 AND 2 ) OR (3 AND 4)</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Upline_Record</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>CommissionLevelFormula</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Get_Upline_Record.CommissionLevel__c</elementReference>
+                    <elementReference>Copy_1_of_Get_Upline_Producer_Contract.CommissionLevel__c</elementReference>
                 </rightValue>
             </conditions>
             <conditions>
@@ -658,10 +630,10 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>CommissionLevelFormula</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>Get_Upline_Record</leftValueReference>
+                <operator>IsNull</operator>
                 <rightValue>
-                    <elementReference>Copy_1_of_Get_Upline_Producer_Contract.CommissionLevel__c</elementReference>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -731,14 +703,7 @@
         <locationY>3662</locationY>
         <name>Copy_1_of_Next_Step</name>
         <rules>
-            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Contract Information</stringValue>
-                </rightValue>
-            </conditions>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -747,28 +712,29 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Update_Options_for_Account</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Contract Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
+                    <stringValue>Sammons Background Questions</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_path_eligible</targetReference>
+                <isGoTo>true</isGoTo>
+                <targetReference>Sub_Flow_Background_Questions</targetReference>
             </connector>
-            <label>Contract</label>
-            <name>Copy_1_of_Contract</name>
+            <label>Background</label>
+            <name>Copy_1_of_Background</name>
         </rules>
         <rules>
             <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
             <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
@@ -776,24 +742,10 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>Update_Options_for_Account</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Banking Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -804,19 +756,48 @@
             <name>Copy_1_of_Banking</name>
         </rules>
         <rules>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
             <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Training Information</stringValue>
+                    <stringValue>Contract Information</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Update_Options_for_Account</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Contract Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_path_eligible</targetReference>
+            </connector>
+            <label>Contract</label>
+            <name>Copy_1_of_Contract</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Training Information</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -825,29 +806,6 @@
             </connector>
             <label>Training</label>
             <name>Copy_1_of_Training</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Sammons Background Questions</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <isGoTo>true</isGoTo>
-                <targetReference>Sub_Flow_Background_Questions</targetReference>
-            </connector>
-            <label>Background</label>
-            <name>Copy_1_of_Background</name>
         </rules>
     </decisions>
     <decisions>
@@ -890,6 +848,22 @@
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
+                    <stringValue>Sammons Background Questions</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Sub_Flow_Background_Questions</targetReference>
+            </connector>
+            <label>Background</label>
+            <name>Copy_2_of_Background</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
                     <stringValue>Banking Information</stringValue>
                 </rightValue>
             </conditions>
@@ -916,22 +890,6 @@
             <label>Training</label>
             <name>Copy_2_of_Training</name>
         </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Sammons Background Questions</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <isGoTo>true</isGoTo>
-                <targetReference>Sub_Flow_Background_Questions</targetReference>
-            </connector>
-            <label>Background</label>
-            <name>Copy_2_of_Background</name>
-        </rules>
     </decisions>
     <decisions>
         <defaultConnector>
@@ -945,27 +903,12 @@
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Training Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>Sub_Flow_CE_Training</targetReference>
-            </connector>
-            <label>Training</label>
-            <name>Copy_3_of_Training</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
@@ -973,6 +916,14 @@
                     <stringValue>Sammons Background Questions</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Sub_Flow_Background_Questions</targetReference>
+            </connector>
+            <label>Background</label>
+            <name>Copy_3_of_Background</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -980,11 +931,18 @@
                     <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Training Information</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Sub_Flow_Background_Questions</targetReference>
+                <targetReference>Sub_Flow_CE_Training</targetReference>
             </connector>
-            <label>Background</label>
-            <name>Copy_3_of_Background</name>
+            <label>Training</label>
+            <name>Copy_3_of_Training</name>
         </rules>
     </decisions>
     <decisions>
@@ -999,17 +957,17 @@
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Sammons Background Questions</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Sammons Background Questions</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1018,73 +976,6 @@
             </connector>
             <label>Background</label>
             <name>Copy_4_of_Background</name>
-        </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Get_Parent_Agent_Id_For_New</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Yes</defaultConnectorLabel>
-        <label>Commission Level Looks Good?</label>
-        <locationX>358</locationX>
-        <locationY>7556</locationY>
-        <name>dec_Commission_Level_Looks_Good</name>
-        <rules>
-            <conditionLogic>( 1 AND 2 ) OR (3 AND (5 OR 4)) OR (6 AND 7)</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Upline_Record_for_new</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>CommissionLevelFormula</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_Upline_Record_for_new.CommissionLevel__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Updated_Agency_Producer_Contract</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>CommissionLevelFormula</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_Updated_Agency_Producer_Contract.CommissionLevel__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Producer_Contract_Record.CommissionLevel__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_Updated_Agency_Producer_Contract.CommissionLevel__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Upline_Producer_Contract</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>CommissionLevelFormula</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_Updated_Agency_Producer_Contract.CommissionLevel__c</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Commision_Level_Error</targetReference>
-            </connector>
-            <label>No, Error</label>
-            <name>No_Error</name>
         </rules>
     </decisions>
     <decisions>
@@ -1102,21 +993,6 @@
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Contact_Record</targetReference>
-            </connector>
-            <label>Producer</label>
-            <name>Dec_Flow_Trigger_from_Which_Object_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
                     <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
@@ -1126,16 +1002,6 @@
             <label>Account</label>
             <name>Dec_Flow_Trigger_from_Which_Object_Account</name>
         </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Continue_with_New_or_Update</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Flow Trigger from Which Object</label>
-        <locationX>2504</locationX>
-        <locationY>1514</locationY>
-        <name>dec_Flow_Trigger_from_Which_Object2</name>
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1146,145 +1012,10 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>General_Information_S</targetReference>
+                <targetReference>Get_Contact_Record</targetReference>
             </connector>
             <label>Producer</label>
-            <name>dec_Flow_Trigger_from_Which_Object2_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Continue_with_New_or_Update</targetReference>
-            </connector>
-            <label>Account</label>
-            <name>dec_Flow_Trigger_from_Which_Object2_Account</name>
-        </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Business_Entity_or_Individual_Decision</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Flow Trigger from Which Object3</label>
-        <locationX>732</locationX>
-        <locationY>3962</locationY>
-        <name>dec_Flow_Trigger_from_Which_Object3</name>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Business_Entity_or_Individual</targetReference>
-            </connector>
-            <label>Producer</label>
-            <name>dec_Flow_Trigger_from_Which_Object3_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>asc_Set_the_Entity_type_to_Business</targetReference>
-            </connector>
-            <label>Account</label>
-            <name>dec_Flow_Trigger_from_Which_Object3_Account</name>
-        </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Get_PA_License</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Flow Trigger from Which Object4</label>
-        <locationX>732</locationX>
-        <locationY>9314</locationY>
-        <name>dec_Flow_Trigger_from_Which_Object4</name>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_1_of_Sub_Flow_CE_Training</targetReference>
-            </connector>
-            <label>Producer</label>
-            <name>dec_Flow_Trigger_from_Which_Object4_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_PA_License</targetReference>
-            </connector>
-            <label>Account</label>
-            <name>dec_Flow_Trigger_from_Which_Object4_Account</name>
-        </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Get_Updated_Producer_Record</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Flow Trigger from Which Object</label>
-        <locationX>512</locationX>
-        <locationY>4586</locationY>
-        <name>dec_Flow_Trigger_from_Which_Object5</name>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_Agency_Producer_Contract</targetReference>
-            </connector>
-            <label>Producer</label>
-            <name>dec_Flow_Trigger_from_Which_Object5_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_Producer_Code_Type_to_Corp</targetReference>
-            </connector>
-            <label>Account</label>
-            <name>dec_Flow_Trigger_from_Which_Object5_Account</name>
+            <name>Dec_Flow_Trigger_from_Which_Object_Producer</name>
         </rules>
     </decisions>
     <decisions>
@@ -1302,21 +1033,6 @@
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Updated_Agency_Producer_Contract</targetReference>
-            </connector>
-            <label>Is Producer</label>
-            <name>Is_Producer</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
                     <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
@@ -1326,6 +1042,21 @@
             </connector>
             <label>Is Account</label>
             <name>Is_Account</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Updated_Agency_Producer_Contract</targetReference>
+            </connector>
+            <label>Is Producer</label>
+            <name>Is_Producer</name>
         </rules>
     </decisions>
     <decisions>
@@ -1418,21 +1149,6 @@
                 <leftValueReference>ActiveAgentIdUpline</leftValueReference>
                 <operator>IsBlank</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_Upline</targetReference>
-            </connector>
-            <label>has Active Upline</label>
-            <name>has_Active_Upline</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>ActiveAgentIdUpline</leftValueReference>
-                <operator>IsBlank</operator>
-                <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
@@ -1456,16 +1172,6 @@
             <label>No Active Upline but Found Agent Id</label>
             <name>No_Active_Upline_but_Found_Agent_Id</name>
         </rules>
-    </decisions>
-    <decisions>
-        <defaultConnector>
-            <targetReference>Copy_1_of_Update_Producer_Contract</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Is Active Upline Found For New</label>
-        <locationX>666</locationX>
-        <locationY>8330</locationY>
-        <name>Is_Active_Upline_Found_For_New</name>
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1476,11 +1182,21 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Upline_For_New</targetReference>
+                <targetReference>Update_Upline</targetReference>
             </connector>
-            <label>has Active Upline For New</label>
-            <name>has_Active_Upline_For_New</name>
+            <label>has Active Upline</label>
+            <name>has_Active_Upline</name>
         </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Update_Producer_Contract</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Is Active Upline Found For New</label>
+        <locationX>666</locationX>
+        <locationY>8330</locationY>
+        <name>Is_Active_Upline_Found_For_New</name>
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1502,6 +1218,21 @@
             </connector>
             <label>Copy 1 of No Active Upline but Found Agent Id</label>
             <name>Copy_1_of_No_Active_Upline_but_Found_Agent_Id</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ActiveAgentIdUpline</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Upline_For_New</targetReference>
+            </connector>
+            <label>has Active Upline For New</label>
+            <name>has_Active_Upline_For_New</name>
         </rules>
     </decisions>
     <decisions>
@@ -1539,14 +1270,7 @@
         <locationY>3446</locationY>
         <name>Next_Step</name>
         <rules>
-            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Contact Information</stringValue>
-                </rightValue>
-            </conditions>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -1555,17 +1279,69 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Update_Options_for_Account</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Contact Information</stringValue>
+                    <stringValue>Sammons Background Questions</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Sub_Flow_Background_Questions</targetReference>
+            </connector>
+            <label>Background</label>
+            <name>Background</name>
+        </rules>
+        <rules>
+            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Banking Information</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options_for_Account</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Banking Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sub_Flow_Banking</targetReference>
+            </connector>
+            <label>Banking</label>
+            <name>Banking</name>
+        </rules>
+        <rules>
+            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Contact Information</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options_for_Account</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Contact Information</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1577,6 +1353,13 @@
         <rules>
             <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
             <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
@@ -1584,24 +1367,10 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>Update_Options_for_Account</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contract Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1612,14 +1381,7 @@
             <name>Contract</name>
         </rules>
         <rules>
-            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Banking Information</stringValue>
-                </rightValue>
-            </conditions>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -1627,40 +1389,11 @@
                     <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Update_Options_for_Account</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Banking Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Sub_Flow_Banking</targetReference>
-            </connector>
-            <label>Banking</label>
-            <name>Banking</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
                     <stringValue>Training Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1669,29 +1402,6 @@
             </connector>
             <label>Training</label>
             <name>Training</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Sammons Background Questions</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <isGoTo>true</isGoTo>
-                <targetReference>Sub_Flow_Background_Questions</targetReference>
-            </connector>
-            <label>Background</label>
-            <name>Background</name>
         </rules>
     </decisions>
     <decisions>
@@ -1743,13 +1453,6 @@
             </conditions>
             <conditions>
                 <leftValueReference>Get_Producer_Contract_Record.SubStatus__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>JIT</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Producer_Contract_Record.SubStatus__c</leftValueReference>
                 <operator>IsBlank</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -1774,17 +1477,17 @@
         <rules>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>Does_Agent_have_a_CRD</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Yes</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>Broker_Dealer_CRD</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Does_Agent_have_a_CRD</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Yes</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1879,6 +1582,35 @@
         <locationY>5042</locationY>
         <name>Was_Upline_Entered</name>
         <rules>
+            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Producer_Contract_Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pending</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Producer_Contract_Record.SubStatus__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Upline_Update</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Parent_in_Agent_Id</targetReference>
+            </connector>
+            <label>Update to blank</label>
+            <name>Update_to_blank</name>
+        </rules>
+        <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Upline_Update</leftValueReference>
@@ -1893,42 +1625,6 @@
             <label>Yes</label>
             <name>Yes_Entered</name>
         </rules>
-        <rules>
-            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
-            <conditions>
-                <leftValueReference>Upline_Update</leftValueReference>
-                <operator>IsBlank</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Producer_Contract_Record.Status</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Pending</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Producer_Contract_Record.SubStatus__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>JIT</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Producer_Contract_Record.SubStatus__c</leftValueReference>
-                <operator>IsBlank</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_Parent_in_Agent_Id</targetReference>
-            </connector>
-            <label>Update to blank</label>
-            <name>Update_to_blank</name>
-        </rules>
     </decisions>
     <decisions>
         <defaultConnector>
@@ -1942,40 +1638,68 @@
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>General Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Sammons Background Questions</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <isGoTo>true</isGoTo>
-                <targetReference>General_Information_S</targetReference>
+                <targetReference>Copy_2_of_Sub_Flow_Background_Questions</targetReference>
             </connector>
-            <label>General Info</label>
-            <name>General_Info</name>
+            <label>Background Info</label>
+            <name>Background_Info</name>
         </rules>
         <rules>
             <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Banking Information</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Update_Options_for_Account</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Banking Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Sub_Flow_Banking</targetReference>
+            </connector>
+            <label>Banking Info</label>
+            <name>Banking_Info</name>
+        </rules>
+        <rules>
+            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
             <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
                     <stringValue>Contact Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -1983,13 +1707,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contact Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -2001,6 +1718,13 @@
         <rules>
             <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
             <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
@@ -2008,24 +1732,10 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>Update_Options_for_Account</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Contract Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -2036,14 +1746,7 @@
             <name>Contract_Info</name>
         </rules>
         <rules>
-            <conditionLogic>( 1 AND 2 ) OR ( 3 AND 4 )</conditionLogic>
-            <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Banking Information</stringValue>
-                </rightValue>
-            </conditions>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -2052,39 +1755,33 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Update_Options_for_Account</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>Update_Options</leftValueReference>
+                <operator>Contains</operator>
                 <rightValue>
-                    <stringValue>Banking Information</stringValue>
+                    <stringValue>General Information</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>General_Information_S</targetReference>
+            </connector>
+            <label>General Info</label>
+            <name>General_Info</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Account</stringValue>
+                    <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>Copy_2_of_Sub_Flow_Banking</targetReference>
-            </connector>
-            <label>Banking Info</label>
-            <name>Banking_Info</name>
-        </rules>
-        <rules>
-            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Update_Options</leftValueReference>
                 <operator>Contains</operator>
                 <rightValue>
                     <stringValue>Training Information</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>FlowTriggerObject</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Producer</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -2093,15 +1790,86 @@
             <label>Training Info</label>
             <name>Training_Info</name>
         </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Get_Parent_Agent_Id_For_New</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes</defaultConnectorLabel>
+        <label>Commission Level Looks Good?</label>
+        <locationX>358</locationX>
+        <locationY>7556</locationY>
+        <name>dec_Commission_Level_Looks_Good</name>
+        <rules>
+            <conditionLogic>( 1 AND 2 ) OR (3 AND (5 OR 4)) OR (6 AND 7)</conditionLogic>
+            <conditions>
+                <leftValueReference>CommissionLevelFormula</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Updated_Agency_Producer_Contract.CommissionLevel__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Producer_Contract_Record.CommissionLevel__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Updated_Agency_Producer_Contract.CommissionLevel__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Updated_Agency_Producer_Contract</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Upline_Producer_Contract</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Upline_Record_for_new</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Commision_Level_Error</targetReference>
+            </connector>
+            <label>No, Error</label>
+            <name>No_Error</name>
+        </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Continue_with_New_or_Update</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Flow Trigger from Which Object</label>
+        <locationX>2504</locationX>
+        <locationY>1514</locationY>
+        <name>dec_Flow_Trigger_from_Which_Object2</name>
         <rules>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Update_Options</leftValueReference>
-                <operator>Contains</operator>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Sammons Background Questions</stringValue>
+                    <stringValue>Account</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Continue_with_New_or_Update</targetReference>
+            </connector>
+            <label>Account</label>
+            <name>dec_Flow_Trigger_from_Which_Object2_Account</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>FlowTriggerObject</leftValueReference>
                 <operator>EqualTo</operator>
@@ -2110,10 +1878,130 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Copy_2_of_Sub_Flow_Background_Questions</targetReference>
+                <targetReference>General_Information_S</targetReference>
             </connector>
-            <label>Background Info</label>
-            <name>Background_Info</name>
+            <label>Producer</label>
+            <name>dec_Flow_Trigger_from_Which_Object2_Producer</name>
+        </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Business_Entity_or_Individual_Decision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Flow Trigger from Which Object3</label>
+        <locationX>732</locationX>
+        <locationY>3962</locationY>
+        <name>dec_Flow_Trigger_from_Which_Object3</name>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>asc_Set_the_Entity_type_to_Business</targetReference>
+            </connector>
+            <label>Account</label>
+            <name>dec_Flow_Trigger_from_Which_Object3_Account</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Business_Entity_or_Individual</targetReference>
+            </connector>
+            <label>Producer</label>
+            <name>dec_Flow_Trigger_from_Which_Object3_Producer</name>
+        </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Get_PA_License</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Flow Trigger from Which Object4</label>
+        <locationX>732</locationX>
+        <locationY>9314</locationY>
+        <name>dec_Flow_Trigger_from_Which_Object4</name>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_PA_License</targetReference>
+            </connector>
+            <label>Account</label>
+            <name>dec_Flow_Trigger_from_Which_Object4_Account</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Sub_Flow_CE_Training</targetReference>
+            </connector>
+            <label>Producer</label>
+            <name>dec_Flow_Trigger_from_Which_Object4_Producer</name>
+        </rules>
+    </decisions>
+    <decisions>
+        <defaultConnector>
+            <targetReference>Get_Updated_Producer_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Flow Trigger from Which Object</label>
+        <locationX>512</locationX>
+        <locationY>4586</locationY>
+        <name>dec_Flow_Trigger_from_Which_Object5</name>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Account</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Producer_Code_Type_to_Corp</targetReference>
+            </connector>
+            <label>Account</label>
+            <name>dec_Flow_Trigger_from_Which_Object5_Account</name>
+        </rules>
+        <rules>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FlowTriggerObject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Producer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Agency_Producer_Contract</targetReference>
+            </connector>
+            <label>Producer</label>
+            <name>dec_Flow_Trigger_from_Which_Object5_Producer</name>
         </rules>
     </decisions>
     <description>02/17/2026 Geetham For US#637372
@@ -2176,30 +2064,6 @@
         <valueField>Name</valueField>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"></displayField>
-        <name>choiceCommissionLevel</name>
-        <object xsi:nil="true"></object>
-        <picklistField>CommissionLevel__c</picklistField>
-        <picklistObject>DistributorAuthorization</picklistObject>
-    </dynamicChoiceSets>
-    <dynamicChoiceSets>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"></displayField>
-        <name>choiceDivision</name>
-        <object xsi:nil="true"></object>
-        <picklistField>Division__c</picklistField>
-        <picklistObject>Background_Check__c</picklistObject>
-    </dynamicChoiceSets>
-    <dynamicChoiceSets>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"></displayField>
-        <name>choiceProducerType</name>
-        <object xsi:nil="true"></object>
-        <picklistField>Type__c</picklistField>
-        <picklistObject>DistributorAuthorization</picklistObject>
-    </dynamicChoiceSets>
-    <dynamicChoiceSets>
         <collectionReference>Get_Commission_Levels_IMC</collectionReference>
         <dataType>String</dataType>
         <displayField>Commission_Level__c</displayField>
@@ -2222,6 +2086,30 @@
         <name>Commission_Level_Midland</name>
         <object>Commission_Level_PickList__mdt</object>
         <valueField>Commission_Level_Values__c</valueField>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"></displayField>
+        <name>choiceCommissionLevel</name>
+        <object xsi:nil="true"></object>
+        <picklistField>CommissionLevel__c</picklistField>
+        <picklistObject>DistributorAuthorization</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"></displayField>
+        <name>choiceDivision</name>
+        <object xsi:nil="true"></object>
+        <picklistField>Division__c</picklistField>
+        <picklistObject>Background_Check__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"></displayField>
+        <name>choiceProducerType</name>
+        <object xsi:nil="true"></object>
+        <picklistField>Type__c</picklistField>
+        <picklistObject>DistributorAuthorization</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
     <formulas>
@@ -2326,9 +2214,19 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <name>FlowTriggerObject</name>
     </formulas>
     <formulas>
-        <dataType>Boolean</dataType>
-        <expression>IF({!Does_Agent_have_Pending_Business} = {!Yes}, TRUE, FALSE)</expression>
-        <name>fx_PendingBusiness</name>
+        <dataType>String</dataType>
+        <expression>IF({!FlowTriggerObject} = &apos;Producer&apos;, {!Get_Updated_Contact.agentsync__NPN__c}, {!NewAgencyRecord.agentsync__NPN__c})</expression>
+        <name>TriggerObjectNPN</name>
+    </formulas>
+    <formulas>
+        <dataType>String</dataType>
+        <expression>TRIM({!UplineCodeForNew})</expression>
+        <name>TrimmedUpline</name>
+    </formulas>
+    <formulas>
+        <dataType>String</dataType>
+        <expression>TRIM({!Upline_Code})</expression>
+        <name>TrimmedUplineForUpdate</name>
     </formulas>
     <formulas>
         <dataType>Boolean</dataType>
@@ -2373,19 +2271,9 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <name>fxPendingBusinessAssignment</name>
     </formulas>
     <formulas>
-        <dataType>String</dataType>
-        <expression>IF({!FlowTriggerObject} = &apos;Producer&apos;, {!Get_Updated_Contact.agentsync__NPN__c}, {!NewAgencyRecord.agentsync__NPN__c})</expression>
-        <name>TriggerObjectNPN</name>
-    </formulas>
-    <formulas>
-        <dataType>String</dataType>
-        <expression>TRIM({!UplineCodeForNew})</expression>
-        <name>TrimmedUpline</name>
-    </formulas>
-    <formulas>
-        <dataType>String</dataType>
-        <expression>TRIM({!Upline_Code})</expression>
-        <name>TrimmedUplineForUpdate</name>
+        <dataType>Boolean</dataType>
+        <expression>IF({!Does_Agent_have_Pending_Business} = {!Yes}, TRUE, FALSE)</expression>
+        <name>fx_PendingBusiness</name>
     </formulas>
     <interviewLabel>Paper Application - Midland Annuity - No BD Logic/Rules {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Paper Application - Midland Annuity - No BD Logic/Rules</label>
@@ -3412,9 +3300,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </filters>
         <inputAssignments>
             <field>agentsync__Parent_Agent_ID__c</field>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </inputAssignments>
         <label>Update Parent in Agent Id</label>
         <locationX>2624</locationX>
@@ -3514,9 +3399,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </inputAssignments>
         <inputAssignments>
             <field>Onboarding_Status__c</field>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </inputAssignments>
         <inputAssignments>
             <field>Status</field>
@@ -3526,9 +3408,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </inputAssignments>
         <inputAssignments>
             <field>SubStatus__c</field>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </inputAssignments>
         <label>Update Producer Contract Code</label>
         <locationX>864</locationX>
@@ -3556,9 +3435,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </inputAssignments>
         <inputAssignments>
             <field>Onboarding_Status__c</field>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </inputAssignments>
         <inputAssignments>
             <field>Status</field>
@@ -3568,9 +3444,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </inputAssignments>
         <inputAssignments>
             <field>SubStatus__c</field>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </inputAssignments>
         <label>Update Producer Contract Code for All State Upline SRS</label>
         <locationX>600</locationX>
@@ -3863,32 +3736,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <targetReference>Business_Entity_or_Individual_Decision</targetReference>
         </connector>
         <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>General</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>welcomeStage</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
             <extensionName>runtime_industries_lending:flowPickArray</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -3912,6 +3759,32 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <name>onboardingType</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>General</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>welcomeStage</name>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <label>Business Entity or Individual</label>
@@ -3949,112 +3822,14 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <targetReference>Submit_Background</targetReference>
         </connector>
         <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>Complete</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>completeStage</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
             <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); font-size: 14px; background-color: rgb(255, 255, 255);&quot;&gt;You have completed the Non-Standard flow for {!Get_Contact_Record.Name}. Please review the details in the summary screen below. Once you&apos;re done, you may exit out of this screen.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <name>CompleteDT</name>
         </fields>
         <fields>
-            <dataTypeMappings>
-                <typeName>T</typeName>
-                <typeValue>DistributorAuthorization</typeValue>
-            </dataTypeMappings>
-            <extensionName>flowruntime:datatable</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Agent Code Summary</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectionMode</name>
-                <value>
-                    <stringValue>NO_SELECTION</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>minRowSelection</name>
-                <value>
-                    <numberValue>0.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>tableData</name>
-                <value>
-                    <elementReference>Get_Updated_Producer_Contract</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>columns</name>
-                <value>
-                    <stringValue>[{&quot;apiName&quot;:&quot;Related_Producer__c&quot;,&quot;guid&quot;:&quot;column-a11f&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Name&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Related Producer&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;Agent_Code__c&quot;,&quot;guid&quot;:&quot;column-8646&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Agent Code&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;Code_Type__c&quot;,&quot;guid&quot;:&quot;column-55b8&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Code Type&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;CommissionLevel__c&quot;,&quot;guid&quot;:&quot;column-12f9&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:3,&quot;label&quot;:&quot;Commission Level&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Type__c&quot;,&quot;guid&quot;:&quot;column-6250&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:4,&quot;label&quot;:&quot;Producer Type&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;CurrentDistributionOwner__c&quot;,&quot;guid&quot;:&quot;column-5848&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Distribution Owner&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:5,&quot;label&quot;:&quot;Current Distribution Owner&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Upline_Code__c&quot;,&quot;guid&quot;:&quot;column-64b6&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Upline&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:6,&quot;label&quot;:&quot;Upline Code&quot;,&quot;type&quot;:&quot;text&quot;}]</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>maxRowSelection</name>
-                <value>
-                    <numberValue>0.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>shouldDisplayLabel</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>Summary</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
             <fieldType>RegionContainer</fieldType>
             <fields>
                 <fieldType>Region</fieldType>
-                <fields>
-                    <dataType>Boolean</dataType>
-                    <fieldText>Run BIG background check on agent.</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>Run_BIG_background_check_on_agent</name>
-                    <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
-                        <conditions>
-                            <leftValueReference>FlowTriggerObject</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
-                                <stringValue>Account</stringValue>
-                            </rightValue>
-                        </conditions>
-                    </visibilityRule>
-                </fields>
                 <fields>
                     <choiceReferences>choiceDivision</choiceReferences>
                     <dataType>String</dataType>
@@ -4066,12 +3841,30 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <visibilityRule>
                         <conditionLogic>and</conditionLogic>
                         <conditions>
+                            <leftValueReference>FlowTriggerObject</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Account</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
                             <leftValueReference>Run_BIG_background_check_on_agent</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <booleanValue>true</booleanValue>
                             </rightValue>
                         </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Run BIG background check on agent.</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <name>Run_BIG_background_check_on_agent</name>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
                         <conditions>
                             <leftValueReference>FlowTriggerObject</leftValueReference>
                             <operator>NotEqualTo</operator>
@@ -4105,6 +3898,86 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <name>Complete_Section1</name>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
+        <fields>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>DistributorAuthorization</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>columns</name>
+                <value>
+                    <stringValue>[{&quot;apiName&quot;:&quot;Related_Producer__c&quot;,&quot;guid&quot;:&quot;column-a11f&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Name&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Related Producer&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;Agent_Code__c&quot;,&quot;guid&quot;:&quot;column-8646&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Agent Code&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;Code_Type__c&quot;,&quot;guid&quot;:&quot;column-55b8&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Code Type&quot;,&quot;type&quot;:&quot;customRichText&quot;},{&quot;apiName&quot;:&quot;CommissionLevel__c&quot;,&quot;guid&quot;:&quot;column-12f9&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:3,&quot;label&quot;:&quot;Commission Level&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Type__c&quot;,&quot;guid&quot;:&quot;column-6250&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:4,&quot;label&quot;:&quot;Producer Type&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;CurrentDistributionOwner__c&quot;,&quot;guid&quot;:&quot;column-5848&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Distribution Owner&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:5,&quot;label&quot;:&quot;Current Distribution Owner&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Upline_Code__c&quot;,&quot;guid&quot;:&quot;column-64b6&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:true,&quot;customHeaderLabel&quot;:&quot;Upline&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:6,&quot;label&quot;:&quot;Upline Code&quot;,&quot;type&quot;:&quot;text&quot;}]</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Agent Code Summary</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxRowSelection</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectionMode</name>
+                <value>
+                    <stringValue>NO_SELECTION</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>shouldDisplayLabel</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>Get_Updated_Producer_Contract</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>Summary</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>Complete</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>completeStage</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
         <label>Complete</label>
         <locationX>4588</locationX>
         <locationY>10922</locationY>
@@ -4119,37 +3992,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <connector>
             <targetReference>Assign_Commission_Level_Value_For_New</targetReference>
         </connector>
-        <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>Contract</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>Copy_2_of_contractStage</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Please confirm or update the following Producer Contract details.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <name>Copy_2_of_dtContractInformation</name>
-        </fields>
         <fields>
             <fieldType>RegionContainer</fieldType>
             <fields>
@@ -4167,13 +4009,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <name>CommissionLevel_IMC_ForNew</name>
                     <visibilityRule>
                         <conditionLogic>(1 OR 2) AND 3</conditionLogic>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
                         <conditions>
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
@@ -4207,21 +4042,7 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Upline_Record_for_new.DistributionChannel__c</leftValueReference>
-                            <operator>Contains</operator>
-                            <rightValue>
-                                <stringValue>MGA</stringValue>
                             </rightValue>
                         </conditions>
                         <conditions>
@@ -4250,13 +4071,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
                             </rightValue>
                         </conditions>
@@ -4280,28 +4094,7 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>TrimmedUpline</leftValueReference>
-                            <operator>IsNull</operator>
-                            <rightValue>
-                                <booleanValue>true</booleanValue>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Upline_Record_for_new.DistributionChannel__c</leftValueReference>
-                            <operator>IsNull</operator>
-                            <rightValue>
-                                <booleanValue>true</booleanValue>
                             </rightValue>
                         </conditions>
                         <conditions>
@@ -4309,6 +4102,13 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <stringValue>Unknown</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>TrimmedUpline</leftValueReference>
+                            <operator>IsNull</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -4371,6 +4171,37 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <name>Contract_Information_For_New_Section1</name>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>Contract</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>Copy_2_of_contractStage</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Please confirm or update the following Producer Contract details.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <name>Copy_2_of_dtContractInformation</name>
+        </fields>
         <label>Contract Information For New</label>
         <locationX>732</locationX>
         <locationY>7040</locationY>
@@ -4385,37 +4216,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <connector>
             <targetReference>Assign_Commission_Level_Value</targetReference>
         </connector>
-        <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>Contract</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>contractStage</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Please confirm or update the following Producer Contract details.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <name>dtContractInformation</name>
-        </fields>
         <fields>
             <fieldType>RegionContainer</fieldType>
             <fields>
@@ -4433,13 +4233,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <name>CommissionLevel_IMC</name>
                     <visibilityRule>
                         <conditionLogic>(1 OR 2) AND 3</conditionLogic>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
                         <conditions>
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
@@ -4473,21 +4266,7 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Upline_Record.DistributionChannel__c</leftValueReference>
-                            <operator>Contains</operator>
-                            <rightValue>
-                                <stringValue>MGA</stringValue>
                             </rightValue>
                         </conditions>
                         <conditions>
@@ -4516,13 +4295,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
                             </rightValue>
                         </conditions>
@@ -4546,28 +4318,7 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <elementReference>NAC_100</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Producer_Record.CarrierDescription__r.Int_ExternalId__c</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
                                 <elementReference>NACOL</elementReference>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>TrimmedUplineForUpdate</leftValueReference>
-                            <operator>IsNull</operator>
-                            <rightValue>
-                                <booleanValue>true</booleanValue>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>Get_Upline_Record.DistributionChannel__c</leftValueReference>
-                            <operator>IsNull</operator>
-                            <rightValue>
-                                <booleanValue>true</booleanValue>
                             </rightValue>
                         </conditions>
                         <conditions>
@@ -4575,6 +4326,13 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <stringValue>Unknown</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>TrimmedUplineForUpdate</leftValueReference>
+                            <operator>IsNull</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -4639,6 +4397,37 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <isRequired>false</isRequired>
             <name>Contract_Information_Screen_Section1</name>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>Contract</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>contractStage</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Please confirm or update the following Producer Contract details.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <name>dtContractInformation</name>
         </fields>
         <label>Contract Information</label>
         <locationX>2382</locationX>
@@ -4742,67 +4531,9 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <targetReference>Assign_Variables_for_Sub_Flows</targetReference>
         </connector>
         <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>General</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>personalStage1</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
             <fieldType>RegionContainer</fieldType>
             <fields>
                 <fieldType>Region</fieldType>
-                <fields>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Get_Contact_Record.FirstName</elementReference>
-                    </defaultValue>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>First_Name</name>
-                </fields>
-                <fields>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Get_Contact_Record.FinServ__TaxId__c</elementReference>
-                    </defaultValue>
-                    <fieldText>SSN</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>SSN</name>
-                </fields>
-                <fields>
-                    <choiceReferences>Yes</choiceReferences>
-                    <choiceReferences>No</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Does Agent have a CRD?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>Does_Agent_have_a_CRD</name>
-                </fields>
                 <fields>
                     <choiceReferences>Yes</choiceReferences>
                     <choiceReferences>No</choiceReferences>
@@ -4841,6 +4572,38 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                         </conditions>
                     </visibilityRule>
                 </fields>
+                <fields>
+                    <choiceReferences>Yes</choiceReferences>
+                    <choiceReferences>No</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Does Agent have a CRD?</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <name>Does_Agent_have_a_CRD</name>
+                </fields>
+                <fields>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Get_Contact_Record.FirstName</elementReference>
+                    </defaultValue>
+                    <fieldText>First Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <name>First_Name</name>
+                </fields>
+                <fields>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Get_Contact_Record.FinServ__TaxId__c</elementReference>
+                    </defaultValue>
+                    <fieldText>SSN</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <name>SSN</name>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -4853,15 +4616,12 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <fields>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Get_Contact_Record.MiddleName</elementReference>
-                    </defaultValue>
-                    <fieldText>Middle Name</fieldText>
+                    <dataType>Boolean</dataType>
+                    <fieldText>Agent is an Investment Advisor Representative</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>false</isRequired>
-                    <name>Middle_Name</name>
+                    <isRequired>true</isRequired>
+                    <name>Agent_is_an_Investment_Advisor_Representative</name>
                 </fields>
                 <fields>
                     <dataType>Date</dataType>
@@ -4875,12 +4635,15 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <name>Birth_Date</name>
                 </fields>
                 <fields>
-                    <dataType>Boolean</dataType>
-                    <fieldText>Agent is an Investment Advisor Representative</fieldText>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Get_Contact_Record.MiddleName</elementReference>
+                    </defaultValue>
+                    <fieldText>Middle Name</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>Agent_is_an_Investment_Advisor_Representative</name>
+                    <isRequired>false</isRequired>
+                    <name>Middle_Name</name>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -4894,6 +4657,16 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <fields>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <choiceReferences>Female</choiceReferences>
+                    <choiceReferences>Male</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Gender</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <name>Gender</name>
+                </fields>
+                <fields>
                     <dataType>String</dataType>
                     <defaultValue>
                         <elementReference>Get_Contact_Record.LastName</elementReference>
@@ -4903,16 +4676,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <name>Last_Name</name>
-                </fields>
-                <fields>
-                    <choiceReferences>Female</choiceReferences>
-                    <choiceReferences>Male</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Gender</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <name>Gender</name>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -4926,6 +4689,16 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <fields>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <choiceReferences>Yes</choiceReferences>
+                    <choiceReferences>No</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Does Agent have Pending Business?</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                    <name>Does_Agent_have_Pending_Business</name>
+                </fields>
+                <fields>
                     <dataType>String</dataType>
                     <defaultValue>
                         <elementReference>Get_Contact_Record.Suffix</elementReference>
@@ -4935,16 +4708,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <name>Suffix</name>
-                </fields>
-                <fields>
-                    <choiceReferences>Yes</choiceReferences>
-                    <choiceReferences>No</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Does Agent have Pending Business?</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>false</isRequired>
-                    <name>Does_Agent_have_Pending_Business</name>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -4958,6 +4721,32 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <isRequired>false</isRequired>
             <name>General_Information_S_Section1</name>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>General</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>personalStage1</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <label>General Information</label>
         <locationX>2080</locationX>
@@ -5038,37 +4827,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <targetReference>Get_Upline_By_Agent_Name</targetReference>
         </connector>
         <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>Upline</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>uplinePath_contractInfo</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;Please update or confirm the Upline&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <name>Upline_Information</name>
-        </fields>
-        <fields>
             <dataType>String</dataType>
             <defaultValue>
                 <elementReference>Get_Producer_Contract_Record.Upline_Code__c</elementReference>
@@ -5078,6 +4836,37 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <name>Upline_Code</name>
+        </fields>
+        <fields>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;Please update or confirm the Upline&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <name>Upline_Information</name>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>Upline</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>uplinePath_contractInfo</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <label>Upline Info</label>
         <locationX>2382</locationX>
@@ -5094,32 +4883,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <targetReference>Get_Upline_Record_By_Agent_Name_For_New</targetReference>
         </connector>
         <fields>
-            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>stepList</name>
-                <value>
-                    <elementReference>constant_listOfSteps</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>currentStep</name>
-                <value>
-                    <stringValue>Upline</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>indicatorType</name>
-                <value>
-                    <elementReference>constant_indicatorType</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <name>UplinePathInfor_ContractNew</name>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;Please update or confirm the Upline&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <name>Copy_1_of_Upline_Information</name>
@@ -5134,6 +4897,32 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <name>UplineCodeForNew</name>
+        </fields>
+        <fields>
+            <extensionName>dflowp:dynamicFlowProgressLWC</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>currentStep</name>
+                <value>
+                    <stringValue>Upline</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>indicatorType</name>
+                <value>
+                    <elementReference>constant_indicatorType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>stepList</name>
+                <value>
+                    <elementReference>constant_listOfSteps</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <name>UplinePathInfor_ContractNew</name>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <label>Upline Info For New</label>
         <locationX>732</locationX>
@@ -5150,248 +4939,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <locationY>0</locationY>
     </start>
     <status>Active</status>
-    <subflows>
-        <connector>
-            <targetReference>Get_PA_License</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_Background_Questions</flowName>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Background Questions</label>
-        <locationX>512</locationX>
-        <locationY>9530</locationY>
-        <name>Copy_1_of_Sub_Flow_Background_Questions</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Check_For_Carrier_Description</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_Banking</flowName>
-        <inputAssignments>
-            <name>inputAgencyProducer</name>
-            <value>
-                <elementReference>ProducerAgencyRecord</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputAgencyProducerContract</name>
-            <value>
-                <elementReference>ProducerContractAgencyRecord</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputProducer</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputProducerContract</name>
-            <value>
-                <elementReference>Get_Producer_Contract_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Banking</label>
-        <locationX>732</locationX>
-        <locationY>8906</locationY>
-        <name>Copy_1_of_Sub_Flow_Banking</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Copy_1_of_Sub_Flow_Background_Questions</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_CE_Training</flowName>
-        <inputAssignments>
-            <name>input_producerContractRecord</name>
-            <value>
-                <elementReference>Get_Update_Producer_Contract</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - CE Training</label>
-        <locationX>512</locationX>
-        <locationY>9422</locationY>
-        <name>Copy_1_of_Sub_Flow_CE_Training</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Copy_1_of_Business_Entity_or_Individual</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_Contact_Information</flowName>
-        <inputAssignments>
-            <name>FlowTriggerObject</name>
-            <value>
-                <elementReference>FlowTriggerObject</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>foundNPN</name>
-            <value>
-                <elementReference>TriggerObjectNPN</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>producerId_input</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Contact Information</label>
-        <locationX>732</locationX>
-        <locationY>5510</locationY>
-        <name>Copy_1_of_Sub_Flow_Contact_Information</name>
-        <outputAssignments>
-            <assignToReference>isCAResident</assignToReference>
-            <name>isCAresident</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Get_Updated_Producer_Contract</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_Background_Questions</flowName>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Producer_For_Update_Path</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Background Questions</label>
-        <locationX>7200</locationX>
-        <locationY>1622</locationY>
-        <name>Copy_2_of_Sub_Flow_Background_Questions</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Get_Updated_Producer_Contract</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_Banking</flowName>
-        <inputAssignments>
-            <name>inputProducer</name>
-            <value>
-                <elementReference>Get_Producer_For_Update_Path</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputProducerContract</name>
-            <value>
-                <elementReference>Get_Producer_Contract_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Banking</label>
-        <locationX>6672</locationX>
-        <locationY>1622</locationY>
-        <name>Copy_2_of_Sub_Flow_Banking</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Get_Updated_Producer_Contract</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_CE_Training</flowName>
-        <inputAssignments>
-            <name>input_producerContractRecord</name>
-            <value>
-                <elementReference>Get_Producer_Contract_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Producer_For_Update_Path</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - CE Training</label>
-        <locationX>6936</locationX>
-        <locationY>1622</locationY>
-        <name>Copy_2_of_Sub_Flow_CE_Training</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Get_Updated_Producer_Contract</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_Contact_Information</flowName>
-        <inputAssignments>
-            <name>FlowTriggerObject</name>
-            <value>
-                <elementReference>FlowTriggerObject</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>producerId_input</name>
-            <value>
-                <elementReference>Get_Producer_For_Update_Path</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Contact Information</label>
-        <locationX>6144</locationX>
-        <locationY>1622</locationY>
-        <name>Copy_2_of_Sub_Flow_Contact_Information</name>
-        <outputAssignments>
-            <assignToReference>isCAResident</assignToReference>
-            <name>isCAresident</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Has_NPN_Already_Been_Synced</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_CRD_Validation_and_BD_Checker</flowName>
-        <inputAssignments>
-            <name>input_bdCRD</name>
-            <value>
-                <elementReference>Broker_Dealer_CRD</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>input_ValdiateCRD</name>
-            <value>
-                <elementReference>ValidateCRD</elementReference>
-            </value>
-        </inputAssignments>
-        <label>CRD Validation and BD Checker Subflow</label>
-        <locationX>1948</locationX>
-        <locationY>1946</locationY>
-        <name>CRD_Validation_and_BD_Checker_Subflow</name>
-        <outputAssignments>
-            <assignToReference>bd_AgentIdRecord</assignToReference>
-            <name>bd_AgentIDRecord</name>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>BD_ProducerRecord</assignToReference>
-            <name>BD_ProducerRecord</name>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>BD_Record</assignToReference>
-            <name>BD_Record</name>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>AllstateAlternateId</assignToReference>
-            <name>OutputAltId</name>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>validCRD</assignToReference>
-            <name>validCRD</name>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>varBDCompanionAgentId</assignToReference>
-            <name>varBDCompanionAgentId</name>
-        </outputAssignments>
-    </subflows>
     <subflows>
         <connector>
             <targetReference>Was_Duplicate_NPN_Found</targetReference>
@@ -5420,25 +4967,15 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
     </subflows>
     <subflows>
         <connector>
-            <targetReference>dec_Flow_Trigger_from_Which_Object4</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_E_O</flowName>
-        <inputAssignments>
-            <name>input_producerRecord</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>E&amp;O Subflow</label>
-        <locationX>600</locationX>
-        <locationY>9122</locationY>
-        <name>E_O_Subflow</name>
-    </subflows>
-    <subflows>
-        <connector>
             <targetReference>Was_NPN_Successfully_Found</targetReference>
         </connector>
         <flowName>NPN_Lookup_Subflow</flowName>
+        <inputAssignments>
+            <name>var_SSN</name>
+            <value>
+                <elementReference>SSN</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <name>var_firstName</name>
             <value>
@@ -5449,12 +4986,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <name>var_lastName</name>
             <value>
                 <elementReference>Last_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>var_SSN</name>
-            <value>
-                <elementReference>SSN</elementReference>
             </value>
         </inputAssignments>
         <label>NPN Lookup</label>
@@ -5469,50 +5000,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <assignToReference>npnLookupSuccess</assignToReference>
             <name>var_success</name>
         </outputAssignments>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Flow_Trigger_from_Which_Object_for_Upline</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_Add_Address_to_Agency_Producer_Record</flowName>
-        <inputAssignments>
-            <name>inputAgencyProducer</name>
-            <value>
-                <elementReference>ProducerAgencyRecord</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputProducer</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Portal Sub Flow - Add Addresses to Agency</label>
-        <locationX>600</locationX>
-        <locationY>5726</locationY>
-        <name>Portal_Sub_Flow_Add_Addresses_to_Agency</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Complete</targetReference>
-        </connector>
-        <flowName>Portal_Sub_Flow_Update_Status_of_All_Cloned_Producer_Contracts</flowName>
-        <inputAssignments>
-            <name>inputAllProducerContracts</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Contract</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputOriginalProducerContract</name>
-            <value>
-                <elementReference>Get_Producer_Contract_to_Update_Statuses</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Portal Sub Flow - Update Status of All Producer Contracts</label>
-        <locationX>4456</locationX>
-        <locationY>10730</locationY>
-        <name>Portal_Sub_Flow_Update_Status_of_All_Producer_Contracts</name>
     </subflows>
     <subflows>
         <connector>
@@ -5552,12 +5039,12 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <name>outputAgencyAgentId</name>
         </outputAssignments>
         <outputAssignments>
-            <assignToReference>ProducerAgencyRecord</assignToReference>
-            <name>outputAgencyProducer</name>
-        </outputAssignments>
-        <outputAssignments>
             <assignToReference>NewAgencyRecord</assignToReference>
             <name>outputNewAgencyRecord</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>ProducerAgencyRecord</assignToReference>
+            <name>outputAgencyProducer</name>
         </outputAssignments>
         <outputAssignments>
             <assignToReference>ProducerContractAgencyRecord</assignToReference>
@@ -5579,28 +5066,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <locationX>4736</locationX>
         <locationY>3770</locationY>
         <name>Sub_Flow_Background_Questions</name>
-    </subflows>
-    <subflows>
-        <connector>
-            <targetReference>Copy_3_of_Next_Step</targetReference>
-        </connector>
-        <flowName>Portal_Subflow_Banking</flowName>
-        <inputAssignments>
-            <name>inputProducer</name>
-            <value>
-                <elementReference>Get_Updated_Producer_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>inputProducerContract</name>
-            <value>
-                <elementReference>Get_Producer_Contract_Record</elementReference>
-            </value>
-        </inputAssignments>
-        <label>Sub Flow - Banking</label>
-        <locationX>4704</locationX>
-        <locationY>3554</locationY>
-        <name>Sub_Flow_Banking</name>
     </subflows>
     <subflows>
         <connector>
@@ -5645,13 +5110,141 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         </outputAssignments>
     </subflows>
     <subflows>
-        <flowName>Sub_Flow_Automatically_Submit_Background</flowName>
+        <connector>
+            <targetReference>Complete</targetReference>
+        </connector>
+        <flowName>Portal_Sub_Flow_Update_Status_of_All_Cloned_Producer_Contracts</flowName>
         <inputAssignments>
-            <name>input_contactId</name>
+            <name>inputAllProducerContracts</name>
             <value>
-                <elementReference>Get_Contact_Record.Id</elementReference>
+                <elementReference>Get_Updated_Producer_Contract</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <name>inputOriginalProducerContract</name>
+            <value>
+                <elementReference>Get_Producer_Contract_to_Update_Statuses</elementReference>
+            </value>
+        </inputAssignments>
+        <label>Portal Sub Flow - Update Status of All Producer Contracts</label>
+        <locationX>4456</locationX>
+        <locationY>10730</locationY>
+        <name>Portal_Sub_Flow_Update_Status_of_All_Producer_Contracts</name>
+    </subflows>
+    <subflows>
+        <connector>
+            <targetReference>Flow_Trigger_from_Which_Object_for_Upline</targetReference>
+        </connector>
+        <flowName>Portal_Subflow_Add_Address_to_Agency_Producer_Record</flowName>
+        <inputAssignments>
+            <name>inputAgencyProducer</name>
+            <value>
+                <elementReference>ProducerAgencyRecord</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>inputProducer</name>
+            <value>
+                <elementReference>Get_Updated_Producer_Record</elementReference>
+            </value>
+        </inputAssignments>
+        <label>Portal Sub Flow - Add Addresses to Agency</label>
+        <locationX>600</locationX>
+        <locationY>5726</locationY>
+        <name>Portal_Sub_Flow_Add_Addresses_to_Agency</name>
+    </subflows>
+    <subflows>
+        <connector>
+            <targetReference>Copy_3_of_Next_Step</targetReference>
+        </connector>
+        <flowName>Portal_Subflow_Banking</flowName>
+        <inputAssignments>
+            <name>inputProducer</name>
+            <value>
+                <elementReference>Get_Updated_Producer_Record</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>inputProducerContract</name>
+            <value>
+                <elementReference>Get_Producer_Contract_Record</elementReference>
+            </value>
+        </inputAssignments>
+        <label>Sub Flow - Banking</label>
+        <locationX>4704</locationX>
+        <locationY>3554</locationY>
+        <name>Sub_Flow_Banking</name>
+    </subflows>
+    <subflows>
+        <connector>
+            <targetReference>Has_NPN_Already_Been_Synced</targetReference>
+        </connector>
+        <flowName>Portal_Subflow_CRD_Validation_and_BD_Checker</flowName>
+        <inputAssignments>
+            <name>input_ValdiateCRD</name>
+            <value>
+                <elementReference>ValidateCRD</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>input_bdCRD</name>
+            <value>
+                <elementReference>Broker_Dealer_CRD</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>input_producerRecord</name>
+            <value>
+                <elementReference>Get_Producer_Record</elementReference>
+            </value>
+        </inputAssignments>
+        <label>CRD Validation and BD Checker Subflow</label>
+        <locationX>1948</locationX>
+        <locationY>1946</locationY>
+        <name>CRD_Validation_and_BD_Checker_Subflow</name>
+        <outputAssignments>
+            <assignToReference>AllstateAlternateId</assignToReference>
+            <name>OutputAltId</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>BD_ProducerRecord</assignToReference>
+            <name>BD_ProducerRecord</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>BD_Record</assignToReference>
+            <name>BD_Record</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>bd_AgentIdRecord</assignToReference>
+            <name>bd_AgentIDRecord</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>validCRD</assignToReference>
+            <name>validCRD</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varBDCompanionAgentId</assignToReference>
+            <name>varBDCompanionAgentId</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <connector>
+            <targetReference>dec_Flow_Trigger_from_Which_Object4</targetReference>
+        </connector>
+        <flowName>Portal_Subflow_E_O</flowName>
+        <inputAssignments>
+            <name>input_producerRecord</name>
+            <value>
+                <elementReference>Get_Updated_Producer_Record</elementReference>
+            </value>
+        </inputAssignments>
+        <label>E&amp;O Subflow</label>
+        <locationX>600</locationX>
+        <locationY>9122</locationY>
+        <name>E_O_Subflow</name>
+    </subflows>
+    <subflows>
+        <flowName>Sub_Flow_Automatically_Submit_Background</flowName>
         <inputAssignments>
             <name>input_Divison</name>
             <value>
@@ -5662,6 +5255,12 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
             <name>input_Producer</name>
             <value>
                 <elementReference>Get_Updated_Producer_For_BIG.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>input_contactId</name>
+            <value>
+                <elementReference>Get_Contact_Record.Id</elementReference>
             </value>
         </inputAssignments>
         <label>Submit Background Check</label>
@@ -5710,14 +5309,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <name>bd_AgentIdRecord</name>
-        <objectType>agentsync__Agent_ID__c</objectType>
-    </variables>
-    <variables>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
         <name>BD_ProducerRecord</name>
         <objectType>Producer</objectType>
     </variables>
@@ -5744,28 +5335,14 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <name>DistributionChannelFORNACIMCANDMGA</name>
     </variables>
     <variables>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>duplicateNPN</name>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-        <name>foundNPN</name>
-    </variables>
-    <variables>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>isCAResident</name>
+        <name>NACOL</name>
+        <value>
+            <stringValue>NACOL</stringValue>
+        </value>
     </variables>
     <variables>
         <dataType>String</dataType>
@@ -5775,16 +5352,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <name>NAC_100</name>
         <value>
             <stringValue>100</stringValue>
-        </value>
-    </variables>
-    <variables>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>NACOL</name>
-        <value>
-            <stringValue>NACOL</stringValue>
         </value>
     </variables>
     <variables>
@@ -5801,27 +5368,6 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <name>NonActiveAgentIdUpline</name>
-    </variables>
-    <variables>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>npnLookupSuccess</name>
-    </variables>
-    <variables>
-        <dataType>String</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>onboardingTypeChoiceLabels</name>
-    </variables>
-    <variables>
-        <dataType>String</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <name>onboardingTypeChoiceValues</name>
     </variables>
     <variables>
         <dataType>String</dataType>
@@ -5880,14 +5426,67 @@ IF( AND( ISBLANK({!Get_Producer_Record.AccountId}), NOT( ISBLANK( {!Get_Producer
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-        <name>recordId</name>
+        <name>ValidateCRD</name>
+    </variables>
+    <variables>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <name>bd_AgentIdRecord</name>
+        <objectType>agentsync__Agent_ID__c</objectType>
+    </variables>
+    <variables>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>duplicateNPN</name>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>foundNPN</name>
+    </variables>
+    <variables>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>isCAResident</name>
+    </variables>
+    <variables>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>npnLookupSuccess</name>
+    </variables>
+    <variables>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>onboardingTypeChoiceLabels</name>
+    </variables>
+    <variables>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <name>onboardingTypeChoiceValues</name>
     </variables>
     <variables>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-        <name>ValidateCRD</name>
+        <name>recordId</name>
     </variables>
     <variables>
         <dataType>Boolean</dataType>
