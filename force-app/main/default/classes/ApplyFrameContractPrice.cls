@@ -119,6 +119,7 @@ global with sharing class ApplyFrameContractPrice implements vlocity_cmt.Vlocity
         List<Sobject> contractLineList = database.query(query);
         
         return contractLineList;
+//test
     }
     
 }
