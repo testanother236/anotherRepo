@@ -7,7 +7,6 @@
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <label>Flosum</label>
-    <logo>Flosum__Logo/Flosum__Logo2.png</logo>
     <tabs>Flosum__Organisation__c</tabs>
     <tabs>Flosum__Snapshot_Comparison</tabs>
     <tabs>Flosum__Branch__c</tabs>

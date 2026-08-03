@@ -4,3 +4,4 @@ public with sharing class MyGoodClass {
         return a + b;
     }
 }
+//testtesttest

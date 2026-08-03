@@ -26,9 +26,4 @@
         <default>false</default>
         <label>Obsolete</label>
     </standardValue>
-    <standardValue>
-        <fullName>Subscribed</fullName>
-        <default>false</default>
-        <label>Subscribed</label>
-    </standardValue>
 </StandardValueSet>

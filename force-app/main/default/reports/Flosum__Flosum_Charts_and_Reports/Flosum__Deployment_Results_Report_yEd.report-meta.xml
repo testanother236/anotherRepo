@@ -13,9 +13,6 @@
         <field>Flosum__Deployment_Result__c$Flosum__Developer__c</field>
     </columns>
     <columns>
-        <field>Flosum__Deployment_Result__c$Flosum__Committed_By__c</field>
-    </columns>
-    <columns>
         <field>Flosum__Deployment_Result__c$Flosum__Metadata_Log__c.Flosum__Branch__c.Flosum__Branch_Name__c</field>
     </columns>
     <columns>
