@@ -20,7 +20,7 @@ public with sharing class ServicoAprovacaoGenerico {
         String tabelaVendaId,
         Decimal valorProposto
     ) {
-        // Lista de retorno genérica
+        // Lista de retorno genérica genérica genérica genérica
         List<Map<String, Object>> criteriosRetorno = new List<Map<String, Object>>();
         
         // Validar entradas
