@@ -6,7 +6,7 @@ public with sharing class ServicoAprovacaoGenerico {
     /**
      * Verifica critérios de aprovação com base em séries de pagamento, renda total, compradores,
      * tabela de vendas e valor proposto.
-     * @param seriesJSON - JSON de séries de pagamento.
+     * @param seriesJSON - JSON de séries de pagamento. séries
      * @param rendaTotal - Renda total.
      * @param compradoresJSON - JSON de compradores.
      * @param tabelaVendaId - Id da tabela de venda (pode ser qualquer string ou Id).
